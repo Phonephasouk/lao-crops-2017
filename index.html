@@ -30,8 +30,6 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-	
 	
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="screen" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css"/>
@@ -45,25 +43,25 @@
 
 <div class="container-fluid">	
     <div class="row">        
-            <h3>Lao PDR Crops Statistics 2017                
-            </h3>						
+            <h4>Lao PDR Crops Statistics 2017                
+            </h4>						
     </div>
 		
     <div class="row" id="control-row">
         
-        <div class="col-md-6">
-            <h4>Prodution Map
+        <div class="col-xs-6">
+            <h5>Prodution Map
 			<small>
 				<a class="reset" style="visibility: showed;" href="javascript:usChartLeaflet.filterAll();dc.redrawAll();">reset</a>
 			</small>
-            </h4>
-            <div class="dc-chart" id="chart-leaflet" style="width:92%; height:590px;"></div>
+            </h5>
+            <div class="dc-chart" id="chart-leaflet" style="width:98%; height:590px;"></div>
         </div>
 		
-        <div class="col-md-3">
+        <div class="col-xs-3">
 			<div class="row">
-				<h4>Select Indicator							
-				</h4><br>
+				<h5>Select Indicator							
+				</h5><br>
 					 
 				<div id="select-operation" > &nbsp; &nbsp; 
 					<label><input type=radio name="operation" id = "dOption1" value="1" checked="true">&nbsp;Planted area (ha)</label><br>&nbsp; &nbsp;  
@@ -75,25 +73,25 @@
 			<br>
 			<br>
 			<div class="row">
-				<h4>Percentage of Production  
+				<h5>Percentage of Production  
 					<small><span id="chart-Pie">
 						<a class="reset" style="visibility: hidden;" href="javascript:PieChart.filterAll();dc.redrawAll();">reset</a>
 					</span>
 					</small>
-					<div class="dc-chart" id="chart-Pie" style="width:100px;" ></div>
+					<div class="dc-chart" id="chart-Pie" style="width:90px;" ></div>
 					<center><div class="dc-data-count dc-chart row" id="data-count" >
-						<h4> &nbsp; &nbsp; Total: <span class="filter-count"></span>
+						<h5> &nbsp; &nbsp; Total: <span class="filter-count"></span>
 						<small>
 							 | &nbsp;  <a id="all" style="visibility: showed;" href="#">Reset All</a>  
 						</small>
-						</h4>
+						</h5>
 					</div></center>
-				</h4>			
+				</h5>			
 			</div>
 		</div>
        
-		<div class="col-md-3">
-            <h4>Quantity of Production
+		<div class="col-xs-3">
+            <h5>Quantity of Production
                 <small>
 					<span id="chart-CatID">
 						<a class="reset" style="visibility: hidden;" href="javascript:rowCatChart.filterAll();dc.redrawAll();">reset</a>
@@ -101,14 +99,14 @@
 						<!--div class="dc-chart" id="chart-CatID" style='overflow-y:scroll; height:600px;' ></div-->
 					</span>
 				</small>
-			</h4>
+			</h5>
         </div>	   
 	</div>			
 </div>
 
 
 <script type="text/javascript">
-	var jsonFile2 = "https://phonephasouk.github.io/laos-crops-2017/data/lao_all_crops_2017.json";
+	var jsonFile2 = "data/lao_all_crops_2017.json";
 	
     d3.json(jsonFile2, function(error, data) {
 		
@@ -196,7 +194,7 @@
 		}
 		rowCatChart
 			.height(580) //optional
-			.width(290)
+			.width(210)
 			.dimension(CatDim)
 			.group(countPerCat)
 			.controlsUseVisibility(true)
@@ -237,7 +235,7 @@
 		GroupHChart.filter([['Planted area (ha)']]);			
 								
 		PieChart
-			.width(280)			
+			.width(220)			
 			.height(340)			
 			.dimension(CatIDDim)
 			.group(countPerCatID)			
@@ -254,7 +252,7 @@
 			;
 		
 		window.onresize = function(event) {
-			if (window.innerWidth >900)
+			if (window.innerWidth >700)
 			  {var newWidth = window.innerWidth*0.17;
 			  var newHeight = window.innerHeight*0.24;}
 			  else {var newWidth = 250;var newWidth = 340;
@@ -271,7 +269,7 @@
 			.controlsUseVisibility(true)
 			.dimension(ndx)
 			.group(all);
-		var jsonFile1 = "https://phonephasouk.github.io/laos-crops-2017/data/province_pov.json";
+		var jsonFile1 = "data/province_pov.json";
         d3.json(jsonFile1, function (ProvinceJson) {
             var locJSON = ProvinceJson;
             var width = 600,
@@ -296,9 +294,9 @@
 				;
 			
             usChartLeaflet			
-				.width(820)
+				.width(420)
 				.height(590)
-				.center([18.16, 104.08])
+				.center([18.16, 103.87])
 				.zoom(6)
 				.dimension(PcodeDim)
 				.group(countPerPcode)
