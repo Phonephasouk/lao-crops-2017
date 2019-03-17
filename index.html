@@ -5,18 +5,18 @@
     <title>Lao PDR Crop Statistics 2017 </title>
     <meta charset="UTF-8">
     
-    <link rel="stylesheet" href="../node_modules/dc/dc.min.css">
+    <link rel="stylesheet" href="node_modules/dc/dc.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
-    <link rel="stylesheet" href="../node_modules/dc-addons/dist/leaflet-map/dc-leaflet-legend.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="node_modules/dc-addons/dist/leaflet-map/dc-leaflet-legend.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
 
-    <script src="../node_modules/dc/node_modules/d3/d3.min.js"></script>
-    <script src="../node_modules/dc/node_modules/crossfilter/crossfilter.min.js"></script>
-    <script src="../node_modules/dc/dc.js"></script>
+    <script src="node_modules/dc/node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/dc/node_modules/crossfilter/crossfilter.min.js"></script>
+    <script src="node_modules/dc/dc.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
-    <script src="../node_modules/dc-addons/dist/leaflet-map/dc-leaflet.js"></script>
-    <script src="../node_modules/leaflet-providers/leaflet-providers.js"></script>
+    <script src="node_modules/dc-addons/dist/leaflet-map/dc-leaflet.js"></script>
+    <script src="node_modules/leaflet-providers/leaflet-providers.js"></script>
     <script src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -26,7 +26,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="screen" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css"/>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-    <script src="../node_modules/underscore/underscore-min.js"></script>
+    <script src="node_modules/underscore/underscore-min.js"></script>
 	
 	
 </head>
@@ -56,8 +56,8 @@
 				</h4><br>
 					 
 				<div id="select-operation" > &nbsp; &nbsp; &nbsp; 
-					<label><input type=radio name="operation" id = "dOption1" value="1" checked="true">&nbsp;Planted Area (ha)</label><br>&nbsp; &nbsp; &nbsp; 
-					<label><input type=radio name="operation" value="2">&nbsp;Harvested Area (ha)</label><br>&nbsp; &nbsp; &nbsp; 
+					<label><input type=radio name="operation" id = "dOption1" value="1" checked="true">&nbsp;Planted area (ha)</label><br>&nbsp; &nbsp; &nbsp; 
+					<label><input type=radio name="operation" value="2">&nbsp;Harvested area (ha)</label><br>&nbsp; &nbsp; &nbsp; 
 					<label><input type=radio name="operation" value="3">&nbsp;Production (tonnes)</label><br>
 				</div>
 	
@@ -98,9 +98,9 @@
 
 
 <script type="text/javascript">
+	var jsonFile2 = "data/lao_all_crops_2017.json";
 	
-	
-    d3.json('../data/lao_all_crops_2017.json', function(error, data) {
+    d3.json(jsonFile2, function(error, data) {
 		
 		riceType = {
 		  1: "Coffee",
@@ -136,8 +136,8 @@
 	
 		};
 		dataT = {
-		  1: "Planted Area (ha)",
-		  2: "Harvested Area (ha)",
+		  1: "Planted area (ha)",
+		  2: "Harvested area (ha)",
 		  3: "Production (tonnes)"
 		};
         var AutoData = data.autos;
@@ -224,7 +224,7 @@
 			return filters;
 		});
 		
-		GroupHChart.filter([['Planted Area (ha)']]);			
+		GroupHChart.filter([['Planted area (ha)']]);			
 								
 		PieChart
 			.width(280)			
@@ -235,11 +235,12 @@
 			//			return d.value.toLocaleString();}
 			//			else {return ((d.value / all.value()) * 100).toFixed(1) + '%';};})	
 			.label(function(d) {return ((d.value / all.value()) * 100).toFixed(1) + '%';})	
-			.title(function(d) { return riceType[d.key] + ': ' + d.value.toLocaleString() ; })
+			.title(function(d) { return riceType[d.key] + ': ' + ((d.value / all.value()) * 100).toFixed(1) + '%'; })
 			//.legend(dc.legend().x(10).y(Math.round(PieChart.height() * 0.15 , 1)).itemHeight(15).gap(Math.round(PieChart.height() * 0.02 , 1)).autoItemWidth(true).legendText(function (d) {
 				//	return riceType[d.name];   }))
 			.innerRadius(30)
 			.controlsUseVisibility(true)
+			.ordering(function(AutoData) {return -AutoData.value })
 			;
 		
 		window.onresize = function(event) {
@@ -260,8 +261,8 @@
 			.controlsUseVisibility(true)
 			.dimension(ndx)
 			.group(all);
-
-        d3.json("../data/province_pov.json", function (ProvinceJson) {
+		var jsonFile1 = "data/province_pov.json";
+        d3.json(jsonFile1, function (ProvinceJson) {
             var locJSON = ProvinceJson;
             var width = 600,
             height = 400;
@@ -336,7 +337,7 @@
             d3.selectAll('a#all').on('click', function () {
                 
 				dc.filterAll();
-				GroupHChart.filter([['Planted Area (ha)']]);
+				GroupHChart.filter([['Planted area (ha)']]);
 				document.getElementById("dOption1").checked = true;
                 dc.redrawAll();
                 /* Leaflet Map throws exception if renderAll() is used */
@@ -349,7 +350,7 @@
             
             d3.selectAll('a#chart-GroupH').on('click', function () {
 				GroupHChart.filterAll();
-                GroupHChart.filter([['Planted Area (ha)']]);		
+                GroupHChart.filter([['Planted area (ha)']]);		
                 dc.redrawAll();
             });
             d3.selectAll('a#chart-Pie').on('click', function () {
@@ -365,10 +366,10 @@
 			$(function() {
 				$('input:radio[name="operation"]').change(function() {
 					if ($(this).val() == 1) {
-						GroupHChart.filter([['Planted Area (ha)']]);
+						GroupHChart.filter([['Planted area (ha)']]);
 						
 					} else if($(this).val() == 2) {						
-						GroupHChart.filter([['Harvested Area (ha)']]);
+						GroupHChart.filter([['Harvested area (ha)']]);
 						
 					} else {						
 						GroupHChart.filter([['Production (tonnes)']]);
