@@ -98,7 +98,7 @@
 
 
 <script type="text/javascript">
-	var jsonFile2 = "data/lao_all_crops_2017.json";
+	var jsonFile2 = "https://phonephasouk.github.io/laos-crops-2017/data/lao_all_crops_2017.json";
 	
     d3.json(jsonFile2, function(error, data) {
 		
@@ -261,7 +261,7 @@
 			.controlsUseVisibility(true)
 			.dimension(ndx)
 			.group(all);
-		var jsonFile1 = "data/province_pov.json";
+		var jsonFile1 = "https://phonephasouk.github.io/laos-crops-2017/data/province_pov.json";
         d3.json(jsonFile1, function (ProvinceJson) {
             var locJSON = ProvinceJson;
             var width = 600,
