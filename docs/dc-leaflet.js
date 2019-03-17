@@ -25,7 +25,7 @@
         var _tiles = function (map) {
             var home = {
 			lat: 18.16,
-			lng: 104.08,
+			lng: 103.87,
 			zoom: 6
 			}; 
 
